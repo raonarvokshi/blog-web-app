@@ -1,0 +1,93 @@
+<%- include("../partials/header.ejs") %>
+<div class="container delete-acc-container
+    d-flex flex-column justify-content-center align-self-center mb-5 shadow-lg p-5 rounded-5">
+    <div class="text-center">
+        <h1 class="border-bottom border-danger border-5 pb-1 d-inline-block">
+            Delete Your Account
+        </h1>
+    </div>
+    
+    <form action="/profile/delete-account" method="POST">
+        <div class="mb-3 mt-4">
+            <input id="password" name="accountPassword" type="password" placeholder="Account Password..." required 
+            class="form-control w-75 mx-auto">
+        </div>
+        
+        <div class="mb-3">
+            <input id="confirm-password" name="confirmPassword" type="password" placeholder="Confirm Password..." required 
+            class="form-control w-75 mx-auto">
+        </div>
+
+        <button type="button" class="btn btn-outline-danger btn-lg mt-2 del-acc-btn" id="open-modal-btn">
+            Delete Account
+        </button>
+
+        <!-- Modal for confirmation -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-danger" id="exampleModalLabel">Delete Account</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete your account?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirm-delete-btn">Delete</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <% if (locals.error) { %>
+            <div class="ms-5 ps-5 mt-4">
+                <p class="text-danger ms-4"><%= error %></p>
+            </div>
+        <% } %>
+        <div class="ms-5 ps-5 mt-4">
+            <p class="text-danger ms-4 error"></p>
+        </div>
+    </form>
+
+</div>
+
+<script>
+    const form = document.querySelector("form");
+    const confirmBtn = document.querySelector("#confirm-delete-btn");
+    const modalBtn = document.querySelector(".del-acc-btn");
+    const accountPwdInp = document.querySelector("#password");
+    const confirmPwdInp = document.querySelector("#confirm-password");
+
+    modalBtn.addEventListener("click", (e) => {
+        e.preventDefault(); // Parandalon hapjen automatike të modalit
+
+        const password = accountPwdInp.value.trim();
+        const confirmPassword = confirmPwdInp.value.trim();
+
+        if (password === "" || confirmPassword === "") {
+            const error = document.querySelector(".error");
+            error.innerHTML = "Please fill in all required fields"
+            return;
+        }
+
+        // Krijon modal-in dhe e hap manualisht
+        const modalElement = document.getElementById("exampleModal");
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    });
+
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault(); // Parandalon submit automatik
+    });
+
+    confirmBtn.addEventListener("click", function () {
+        form.submit(); // Submit vetëm kur konfirmohet përmes modalit
+    });
+</script>
+
+
+<!-- Button trigger modal -->
+<%- include("../partials/footer.ejs") %>

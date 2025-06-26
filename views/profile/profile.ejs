@@ -1,0 +1,50 @@
+<%- include("../partials/header.ejs") %>
+<div class="container account-container
+    d-flex flex-column justify-content-center align-self-center mb-5 shadow-lg p-5 rounded-5">
+        <div class="text-center">
+            <h1 class="border-bottom border-primary border-5 pb-1 d-inline-block">
+                <%= user.username.charAt(0).toUpperCase() + user.username.slice(1) %>'s Account Details
+            </h1>
+        </div>
+        <form action="/profile" method="POST">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username:</label>
+                <input id="username" name="username" type="text"placeholder="Username"required autofocus="" 
+                class="form-control rounded-5" value="<%= user.username %>">
+            </div>
+            
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input id="email" name="email" type="email" placeholder="email"required autofocus="" 
+                class="form-control rounded-5" value="<%= user.email %>">
+            </div>
+
+            <div class="password">
+                <a href="/profile/change-password"class="text-decoration-none">Change password</a>
+                <a href="/profile/delete-account" class="text-decoration-none ms-2 text-danger">Delete Account</a>
+            </div>
+
+            <div class="button">
+                <button type="submit" class="btn btn-outline-primary btn-lg rounded-pill mt-3">Submit</button>
+            </div>
+
+            <% if (locals.success) { %>
+                <div id="success-msg">
+                    <p class="text-success mt-3"><%= success %></p>
+                </div>
+            <% } %>
+        </form>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const successMsg = $("#success-msg");
+            if (successMsg.length) {
+                setTimeout(() => {
+                    successMsg.fadeOut("slow");
+                }, 5000);
+            }
+        });
+    </script>
+
+<%- include("../partials/footer.ejs") %>

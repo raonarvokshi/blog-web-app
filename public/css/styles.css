@@ -1,0 +1,83 @@
+.login-container {
+    margin-top: 10em;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.register-container {
+    margin-top: 7em;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.account-container {
+    margin-top: 8em;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.change-pass-container {
+    margin-top: 9em;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.delete-acc-container {
+    margin-top: 10em;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.blog-post-container {
+    margin-top: 5em;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.change-pass-btn {
+    margin-left: 115px;
+}
+
+.del-acc-btn {
+    margin-left: 115px;
+}
+
+.link {
+    position: relative;
+    overflow: hidden;
+}
+
+.link::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #007bff;
+    transform: scale(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+}
+
+.link:hover::after {
+    transform: scale(1);
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        margin-top: 11em;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    body,
+    html {
+        overflow-x: hidden;
+    }
+}

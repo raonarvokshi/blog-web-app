@@ -1,0 +1,62 @@
+<%- include("../partials/header.ejs") %>
+<div class="container change-pass-container
+    d-flex flex-column justify-content-center align-self-center mb-5 shadow-lg p-5 rounded-5">
+        <div class="text-center">
+            <h1 class="border-bottom border-primary border-5 pb-1 d-inline-block">
+                Change Your Password
+            </h1>
+        </div>
+    <form action="/profile/change-password" method="POST">
+        <div class="mb-3 mt-4">
+            <input id="password" name="accountPassword" type="password" placeholder="Account Password..."required autofocus="" 
+            class="form-control w-75 mx-auto">
+        </div>
+        
+        <div class="mb-3">
+            <input id="new-password" name="newPassword" type="password" placeholder="New Password..."required autofocus="" 
+            class="form-control w-75 mx-auto">
+        </div>
+        
+        <div class="mb-3">
+            <input id="confirm_new-password" name="confirmNewPassword" type="password" placeholder="Confirm New Password..."required autofocus="" 
+            class="form-control w-75 mx-auto">
+        </div>
+        
+        <div class="button">
+            <button type="submit" class="btn btn-outline-primary btn-lg mt-2 change-pass-btn">Change Password</button>
+        </div>
+
+        <% if (locals.error) { %>
+            <div id="error-msg" class="ms-5 ps-5">
+                <p class="text-danger ms-3 mt-3"><%= error %></p>
+            </div>
+        <% } %>
+
+        <% if (locals.success) { %>
+            <div id="success-msg" class="ms-5 ps-5">
+                <p class="text-success ms-3 mt-3"><%= success %></p>
+            </div>
+        <% } %>
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const errorMsg = $("#error-msg");
+        const successMsg = $("#success-msg");
+
+        if (errorMsg.length) {
+            setTimeout(() => {
+                errorMsg.fadeOut("slow");
+            }, 5000);
+        }
+
+        if (successMsg.length) {
+            setTimeout(() => {
+                successMsg.fadeOut("slow");
+            }, 5000);
+        }
+    });
+</script>
+<%- include("../partials/footer.ejs") %>

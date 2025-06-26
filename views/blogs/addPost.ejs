@@ -1,0 +1,24 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container blog-post-container d-flex flex-column justify-content-center align-self-center mb-5 shadow-lg p-5 rounded-5">
+    <div class="text-center">
+        <h1 class="border-bottom border-primary border-5 pb-1 d-inline-block">Create New Blog Post</h1>
+    </div>
+    <form action="/posts/new" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input id="title" name="title" type="text" placeholder="Enter title" required autofocus 
+                class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="content" class="form-label">Content:</label>
+            <textarea id="content" name="content" rows="8" placeholder="Write your blog content here..." required
+                class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-outline-primary btn-lg mt-3">Publish</button>
+    </form>
+</div>
+
+<%- include("../partials/footer.ejs") %>

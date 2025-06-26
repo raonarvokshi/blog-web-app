@@ -1,0 +1,33 @@
+<%- include("partials/header.ejs") %>
+    <section id="home">
+        <div class="container">
+            <div class="row mt-5 pt-5">
+                <div class="col-lg-6 mt-5 pt-5" data-aos="fade-right" data-aos-delay="170">
+                    <div class="wrapper">
+                        <h1 class="text-primary">Blogging Platform</h1>
+                        <p class="fs-5 w-75">
+                            Write, share, and inspire. Our blogging platform 
+                            makes it easy to publish your content and connect 
+                            with your audience effortlessly.
+                        </p>
+
+                        <% if (!locals.user) {%>
+                            <a href="/register" class="btn btn-primary btn-lg rounded-3">
+                                Get Started for Free <i class="ms-1 fa-solid fa-right-from-bracket"></i>
+                            </a>
+                        <% } else { %>
+                            <a href="/add-new-post" class="btn btn-primary btn-lg rounded-3">
+                                Start Writing&nbsp;<i class="fa-solid fa-pencil"></i>
+                            </a>
+                        <% } %>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mt-5 pt-5" data-aos="fade-left" data-aos-delay="170">
+                    <img src="/img/img.png" alt="" class="img-fluid rounded-img">
+                </div>
+            </div>
+        </div>
+    </section>
+<%- include("partials/footer.ejs") %>
