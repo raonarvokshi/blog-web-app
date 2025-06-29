@@ -21,6 +21,12 @@
               <a class="nav-link link" aria-current="page" href="/">Home</a>
             </li>
 
+            <% if (locals.user) { %>
+              <li class="nav-item">
+                <a class="nav-link link" aria-current="page" href="/blogs">Blogs</a>
+              </li>
+            <% } %>
+
             <% if (!locals.user) { %>
               <li class="nav-item">
                 <a class="nav-link link" href="/login">Login</a>
@@ -37,17 +43,20 @@
                 <%= user.username.charAt(0).toUpperCase() + user.username.slice(1) %>
               </a>
               <% } %>
-
               <ul class="dropdown-menu">
                 <li>
                   <a class="dropdown-item" href="/profile">
                     <i class="fa-solid fa-user"></i>&nbsp;&nbsp;Profile
                   </a>
                 </li>
-
                 <li>
                   <a class="dropdown-item" href="/add-new-post">
                     <i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;Add New Post
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/your-blogs">
+                    <i class="fa-solid fa-file-lines"></i>&nbsp;&nbsp;Your Blogs
                   </a>
                 </li>
                 <li><hr class="dropdown-divider"></li>

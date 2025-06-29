@@ -1,0 +1,51 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container text-center mt-5">
+  <h2 class="d-inline-block border-bottom border-primary border-3">All Blogs</h2>
+</div>
+
+<div class="container py-5">
+  <% if (blogs && blogs.length > 0) { %>
+    <% blogs.forEach(blog => { %>
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title">
+                <a href="#" class="text-dark"><%= blog.title %></a>
+            </h3>
+            <h6 class="text-muted mb-3">
+                by <%= blog.author %> •
+                <%= new Date(blog.datePosted).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }) %>
+            </h6>
+            <p class="card-text"><%= blog.shortContent %></p>
+        </div>
+      </div>
+    <% }) %>
+
+    <!-- Pagination Component -->
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+          <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo; Prev</a>
+        </li>
+
+        <% for(let p = 1; p <= totalPages; p++) { %>
+          <li class="page-item <%= currentPage === p ? 'active' : '' %>">
+            <a class="page-link" href="?page=<%= p %>"><%= p %></a>
+          </li>
+        <% } %>
+
+        <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+          <a class="page-link" href="?page=<%= currentPage + 1 %>">Next &raquo;</a>
+        </li>
+      </ul>
+    </nav>
+
+  <% } else { %>
+    <div class="text-center mt-5">
+      <h4>No blogs found.</h4>
+      <a href="/add-new-post" class="btn btn-primary mt-3">Create your first blog</a>
+    </div>
+  <% } %>
+</div>
+
+<%- include("../partials/footer.ejs") %>

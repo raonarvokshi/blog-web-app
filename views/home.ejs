@@ -1,6 +1,13 @@
 <%- include("partials/header.ejs") %>
     <section id="home">
         <div class="container">
+            <% if (locals.blogPosted) { %>
+                <div class="d-flex justify-content-center align-items-center" id="success-msg">
+                    <div class="alert alert-success mt-5 w-50 text-center" role="alert">
+                        <%= blogPosted %>
+                    </div>
+                </div>
+            <% } %>
             <div class="row mt-5 pt-5">
                 <div class="col-lg-6 mt-5 pt-5" data-aos="fade-right" data-aos-delay="170">
                     <div class="wrapper">
@@ -30,4 +37,18 @@
             </div>
         </div>
     </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        const successMsg = $("#success-msg");
+        if (successMsg.length) {
+            setTimeout(() => {
+                successMsg.fadeOut("slow", function() {
+                    $(this).remove();
+                });
+            }, 5000);
+        }
+    });
+    </script>
+
 <%- include("partials/footer.ejs") %>
