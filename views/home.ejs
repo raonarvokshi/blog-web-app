@@ -8,6 +8,14 @@
                     </div>
                 </div>
             <% } %>
+
+            <% if (locals.blogDeleted) { %>
+                <div class="d-flex justify-content-center align-items-center" id="success-msg">
+                    <div class="alert alert-success mt-5 w-50 text-center" role="alert">
+                        <%= blogDeleted %>
+                    </div>
+                </div>
+            <% } %>
             <div class="row mt-5 pt-5">
                 <div class="col-lg-6 mt-5 pt-5" data-aos="fade-right" data-aos-delay="170">
                     <div class="wrapper">

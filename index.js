@@ -26,8 +26,13 @@ app.use(blogs);
 
 app.get("/", verifyToken, (req, res) => {
     const blogPosted = req.query.blogPosted;
+    const blogDeleted = req.query.blogDeleted;
     if (blogPosted) {
         return res.render("home.ejs", { user: req.user, blogPosted: "Your blog was posted successfully!" });
+    }
+
+    if (blogDeleted) {
+        return res.render("home.ejs", { user: req.user, blogDeleted: "Your blog was deleted successfully!" });
     }
     res.render("home.ejs", { user: req.user });
 });

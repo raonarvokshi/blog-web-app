@@ -68,7 +68,7 @@ router.get("/your-blogs", authenticateToken, async (req, res) => {
 
 router.get('/blogs', authenticateToken, async (req, res) => {
     const page = parseInt(req.query.page) || 1;
-    const limit = 5; // poste për faqe
+    const limit = 5;
     const offset = (page - 1) * limit;
 
     try {
@@ -79,10 +79,10 @@ router.get('/blogs', authenticateToken, async (req, res) => {
         const result = await db.query(
             `SELECT posts.id, posts.title, posts.content, posts.created_at,
               users.username AS author
-       FROM posts
-       JOIN users ON posts.author_id = users.id
-       ORDER BY posts.created_at DESC
-       LIMIT $1 OFFSET $2`,
+            FROM posts
+            JOIN users ON posts.author_id = users.id
+            ORDER BY posts.created_at DESC
+            LIMIT $1 OFFSET $2`,
             [limit, offset]
         );
 
@@ -173,7 +173,6 @@ router.get("/blog/:id", authenticateToken, async (req, res) => {
         }
 
         const post = result.rows[0];
-        console.log(post)
         res.render("blogs/blogDetail.ejs", {
             user: req.user,
             post
@@ -184,5 +183,16 @@ router.get("/blog/:id", authenticateToken, async (req, res) => {
     }
 });
 
+router.post("/delete-post/:id", async (req, res) => {
+    const postId = req.params.id;
+
+    try {
+        const result = await db.query("DELETE FROM posts WHERE id = $1", [postId]);
+        res.redirect("/?blogDeleted=true");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 export default router;
