@@ -107,7 +107,6 @@ router.get('/blogs', authenticateToken, async (req, res) => {
 });
 
 
-// GET: shfaq formularin për editim
 router.get("/edit-post/:id", authenticateToken, async (req, res) => {
     const postId = req.params.id;
     const userId = req.user.id;
@@ -131,7 +130,6 @@ router.get("/edit-post/:id", authenticateToken, async (req, res) => {
 });
 
 
-// POST: përditëson postimin në bazë
 router.post("/edit-post/:id", authenticateToken, async (req, res) => {
     const postId = req.params.id;
     const userId = req.user.id;
@@ -152,6 +150,37 @@ router.post("/edit-post/:id", authenticateToken, async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).send("Error updating post");
+    }
+});
+
+
+router.get("/blog/:id", authenticateToken, async (req, res) => {
+    const postId = req.params.id;
+
+    try {
+        const result = await db.query(
+            `SELECT p.id, p.title, p.content, p.created_at, p.updated_at, 
+                u.username AS author, p.author_id
+            FROM posts p
+            JOIN users u ON p.author_id = u.id
+            WHERE p.id = $1`,
+            [postId]
+        );
+
+
+        if (result.rows.length === 0) {
+            return res.status(404).send("Post not found");
+        }
+
+        const post = result.rows[0];
+        console.log(post)
+        res.render("blogs/blogDetail.ejs", {
+            user: req.user,
+            post
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error loading blog detail");
     }
 });
 

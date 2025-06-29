@@ -1,0 +1,37 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container my-5">
+    <div class="text-center">
+        <h1 class="mb-4 text-center border-bottom border-primary pb-2 d-inline-block"><%= post.title %></h1>
+    </div>
+    
+
+  <div class="mb-3 text-muted text-center">
+    Posted by <strong><%= post.author %></strong>
+    on <%= new Date(post.created_at).toLocaleDateString('en-US', {
+         year: 'numeric', month: 'long', day: 'numeric'
+       }) %>
+    <% if (post.updated_at && new Date(post.updated_at) > new Date(post.created_at)) { %>
+      <br>
+      <em>Updated on <%= new Date(post.updated_at).toLocaleDateString('en-US', {
+         year: 'numeric', month: 'long', day: 'numeric'
+       }) %></em>
+    <% } %>
+  </div>
+
+  <div class="card p-4 shadow-sm">
+    <p class="fs-5"><%= post.content %></p>
+  </div>
+
+  <div class="mt-4 text-center">
+    <a class="btn btn-secondary me-2">Back</a>
+    <% if (user.id === post.author_id) { %>
+      <a href="/edit-post/<%= post.id %>" class="btn btn-primary me-2">Edit</a>
+      <form action="/delete-post/<%= post.id %>" method="POST" class="d-inline">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    <% } %>
+  </div>
+</div>
+
+<%- include("../partials/footer.ejs") %>
